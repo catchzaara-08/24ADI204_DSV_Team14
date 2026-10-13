@@ -1,59 +1,51 @@
-# First Impression Report
+# First Impression Report — Airline Flight Delay Analysis
 
 ## 1. Dataset Overview
 
-The project uses a cleaned flight dataset containing flight records from January 1–6, 2024. The cleaned CSV file was provided by a team member and is stored at:
+- **Dataset:** Flight Data 2024
+- **Total records:** 3,538,856
+- **Total columns:** 35
+- **Date range:** January 1, 2024 – July 4, 2024
+- **Duplicate rows:** 0
 
-`data/cleaned/flight_data_2024_cleaned.csv`
+The dataset contains flight schedules, operating carriers, origin and destination information, departure and arrival delays, cancellation and diversion indicators, flight duration, distance, and delay causes.
 
-The dataset contains **96,711 rows and 35 columns**.
+## 2. Initial Data Quality Assessment
 
-The dataset will be explored to understand flight activity, delays, cancellations, and other relevant variables.
+- **Total missing cells:** 3,976,567
+- **Cancellation code:** 3,489,749 missing values (98.61%)
+- **Arrival delay:** 49,107 missing values (1.39%)
+- **Departure delay:** 47,390 missing values (1.34%)
+- **Delay-cause columns:** No missing values detected.
 
-**Note:** The original dataset source and citation still need to be confirmed.
+The missing cancellation codes appear consistent with flights that were not cancelled. Missing arrival-delay values coincide with the cancelled-flight count and require further investigation alongside diverted flights.
 
-## 2. Dataset Structure
+## 3. Flight Status
 
-The cleaned dataset contains:
+- **Non-cancelled flights:** 3,489,749
+- **Cancelled flights:** 49,107
+- **Non-diverted flights:** 3,529,555
+- **Diverted flights:** 9,301
 
-- **Rows:** 96,711
-- **Columns:** 35
-- **File format:** CSV
+No duplicate rows were detected during the initial inspection.
 
-Each row represents a flight record, while the columns contain information about flight details and operational outcomes.
+## 4. Initial Statistical Findings
 
-During the initial inspection:
-- The `fl_date` column was found to contain one missing value.
-- The available records cover January 1–6, 2024.
+- **Mean arrival delay:** 8.10 minutes
+- **Median arrival delay:** -5 minutes
+- **Standard deviation:** Approximately 59.69 minutes
+- **Minimum arrival delay:** -117 minutes
+- **Maximum arrival delay:** 3,359 minutes
 
-## 3. Main Variable Categories
+The difference between the mean and median suggests that large positive delays influence the average.
 
-The dataset contains variables related to the following areas:
+## 5. Scope and Limitations
 
-- **Date and calendar details:** `year`, `month`, `day_of_month`, `day_of_week`, `fl_date`
-- **Airline information:** `op_unique_carrier`, `op_carrier_fl_num`
-- **Flight locations:** `origin`, `origin_city_name`, `origin_state_nm`, `dest`, `dest_city_name`, `dest_state_nm`
-- **Flight timings:** Scheduled and actual departure and arrival times, along with taxi and wheels-off/wheels-on times
-- **Flight delays:** `dep_delay`, `arr_delay`
-- **Cancellations:** `cancelled`, `cancellation_code`
-- **Delay causes:** `carrier_delay`, `weather_delay`, `nas_delay`, `security_delay`, `late_aircraft_delay`
+The available dataset covers January 1 through July 4, 2024, rather than the complete calendar year. Missing values will be investigated before deciding whether to retain, exclude, or impute them. Outliers will be examined before any treatment is applied.
 
-These variables can help examine flight activity, delay patterns, cancellations, and possible factors associated with delays.
+## 6. Next Steps
 
-## 4. Initial Data-Quality Check
-
-The initial inspection of the cleaned dataset found:
-
-- **Missing values:** One missing value in `fl_date`; all other columns have no missing values.
-- **Duplicate rows:** No duplicate rows were detected.
-
-These checks provide an initial understanding of the dataset's completeness and consistency.
-
-## 5. Initial Observations and Scope
-
-- The dataset contains 96,711 flight records.
-- The available records cover January 1–6, 2024.
-- The dataset includes flight details, departure and arrival delays, cancellations, and delay-cause variables.
-- Since the available data covers only six days, findings should not be generalized to the entire year without additional data.
-
-These observations describe the available cleaned file and its current scope.
+1. Validate missing values against cancellation and diversion status.
+2. Examine distributions and potential outliers.
+3. Perform univariate and bivariate exploratory data analysis.
+4. Document cleaning decisions and findings.
